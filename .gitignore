@@ -1,0 +1,5 @@
+/vendor/
+/writable/
+.DS_Storevendor/
+writable/
+/tests/
