@@ -1,0 +1,10 @@
+Auth (Tests\Unit\Auth)
+ [ ] Register success
+ [ ] Register duplicate email
+ [ ] Register admin
+ [ ] Login success
+ [ ] Login invalid credentials
+ [ ] Login missing fields
+ [ ] J w t token validation
+ [ ] Registration validation
+

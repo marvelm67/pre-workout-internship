@@ -4,15 +4,16 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddUser extends Migration
+class CreateUsersTable extends Migration
 {
     public function up()
     {
+        // Drop table if exists (cleanup)
+        $this->forge->dropTable('users', true);
+
         $this->forge->addField([
             'id' => [
-                'type'           => 'SERIAL',
-                'unsigned'       => true,
-                'auto_increment' => true,
+                'type' => 'SERIAL',
             ],
             'username' => [
                 'type'       => 'VARCHAR',
@@ -48,11 +49,11 @@ class AddUser extends Migration
         $this->forge->addPrimaryKey('id');
         $this->forge->addUniqueKey('username');
         $this->forge->addUniqueKey('email');
-        $this->forge->createTable('users');
+        $this->forge->createTable('users', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('users', true);
     }
 }

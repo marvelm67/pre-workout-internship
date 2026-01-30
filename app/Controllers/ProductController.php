@@ -103,10 +103,9 @@ class ProductController extends BaseController
     public function create(): ResponseInterface
     {
         try {
-            // TODO: Add admin authentication check here
-            // if (!$this->isAdmin()) {
-            //     return $this->respond(['status' => 403, 'message' => 'Access denied'], 403);
-            // }
+            if (!$this->isAdmin()) {
+                return $this->respond(['status' => 403, 'message' => 'Access denied'], 403);
+            }
 
             $data = $this->request->getJSON(true) ?? $this->request->getPost();
 
@@ -174,10 +173,9 @@ class ProductController extends BaseController
     public function update(?string $id = null): ResponseInterface
     {
         try {
-            // TODO: Add admin authentication check here
-            // if (!$this->isAdmin()) {
-            //     return $this->respond(['status' => 403, 'message' => 'Access denied'], 403);
-            // }
+            if (!$this->isAdmin()) {
+                return $this->respond(['status' => 403, 'message' => 'Access denied'], 403);
+            }
 
             if (!$id || !is_numeric($id)) {
                 return $this->respond([
@@ -273,10 +271,9 @@ class ProductController extends BaseController
     public function delete(?string $id = null): ResponseInterface
     {
         try {
-            // TODO: Add admin authentication check here
-            // if (!$this->isAdmin()) {
-            //     return $this->respond(['status' => 403, 'message' => 'Access denied'], 403);
-            // }
+            if (!$this->isAdmin()) {
+                return $this->respond(['status' => 403, 'message' => 'Access denied'], 403);
+            }
 
             if (!$id || !is_numeric($id)) {
                 return $this->respond([

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Unit\AuthTest" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" tests="8" assertions="0" errors="8" failures="0" skipped="0" time="0.067353">
+    <testcase name="testRegisterSuccess" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="48" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.047800">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testRegisterSuccess
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/register'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:57</error>
+    </testcase>
+    <testcase name="testRegisterDuplicateEmail" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="76" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.003865">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testRegisterDuplicateEmail
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/register'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:85</error>
+    </testcase>
+    <testcase name="testRegisterAdmin" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="107" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.003064">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testRegisterAdmin
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/register'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:116</error>
+    </testcase>
+    <testcase name="testLoginSuccess" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="128" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.002394">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testLoginSuccess
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/register'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:137</error>
+    </testcase>
+    <testcase name="testLoginInvalidCredentials" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="163" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.002834">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testLoginInvalidCredentials
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/login'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:170</error>
+    </testcase>
+    <testcase name="testLoginMissingFields" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="182" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.002563">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testLoginMissingFields
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/login'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:189</error>
+    </testcase>
+    <testcase name="testJWTTokenValidation" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="201" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.002425">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testJWTTokenValidation
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/register'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:210</error>
+    </testcase>
+    <testcase name="testRegistrationValidation" file="/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php" line="239" class="Tests\Unit\AuthTest" classname="Tests.Unit.AuthTest" assertions="0" time="0.002406">
+      <error type="CodeIgniter\Exceptions\PageNotFoundException">Tests\Unit\AuthTest::testRegistrationValidation
+CodeIgniter\Exceptions\PageNotFoundException: Can't find a route for 'POST: auth/register'.
+
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:983
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/CodeIgniter.php:360
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:228
+/Users/marvelmichael/Documents/pre-workout-fresh/vendor/codeigniter4/framework/system/Test/FeatureTestTrait.php:261
+/Users/marvelmichael/Documents/pre-workout-fresh/tests/unit/AuthTest.php:248</error>
+    </testcase>
+  </testsuite>
+</testsuites>

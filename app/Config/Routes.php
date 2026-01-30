@@ -17,8 +17,11 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->post('register', 'AuthController::register');
     $routes->post('login', 'AuthController::login');
 
+    // Protected routes (JWT required)
+    $routes->get('me', 'Me::index', ['filter' => 'auth']);
+
     // User routes (admin only)
-    $routes->get('users', 'UserController::index');
+    $routes->get('users', 'UserController::index', ['filter' => 'auth']);
 
     // Product routes
     $routes->group('products', function($routes) {
@@ -29,6 +32,8 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers'], function($routes) {
         $routes->patch('(:num)', 'ProductController::update/$1'); // PATCH /api/v1/products/123 (Admin only)
         $routes->delete('(:num)', 'ProductController::delete/$1'); // DELETE /api/v1/products/123 (Admin only)
     });
+
+    $routes->get('users/usernames', 'AuthController::getUsernames', ['filter' => 'auth']);
 
     // Future: Category routes can be added here
     // $routes->group('categories', function($routes) {

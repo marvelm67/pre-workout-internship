@@ -27,8 +27,8 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'postgres',
-        'password'     => '',
+        'username'     => 'marvelmichael',
+        'password'     => 'postgres@2025',
         'database'     => 'pre_workout_db',
         'schema'       => 'public',
         'DBDriver'     => 'Postgre',
