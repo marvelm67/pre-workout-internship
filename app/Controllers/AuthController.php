@@ -168,29 +168,4 @@ class AuthController extends ResourceController
             ], 500);
         }
     }
-    public function getUsernames()
-    {
-        try {
-            $db = \Config\Database::connect();
-            if (!$db->connID) {
-                throw new \Exception('Database connection failed');
-            }
-            $users = $this->userModel->select('id, username, email, role, created_at')->findAll();
-            
-            return $this->respond([
-                'status' => 200,
-                'message' => 'Users retrieved successfully',
-                'data' => $users
-            ], 200);
-
-        } catch (\Exception $e) {
-            log_message('error', 'Error getting usernames: ' . $e->getMessage());
-            
-            return $this->respond([
-                'status' => 500,
-                'message' => 'Internal server error',
-                'data' => null
-            ], 500);
-        }
-    }
 }

@@ -33,6 +33,15 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers'], function($routes) {
         $routes->delete('(:num)', 'ProductController::delete/$1'); // DELETE /api/v1/products/123 (Admin only)
     });
 
+    // Admin routes (admin only) - dengan AdminFilter
+    $routes->group('admin', ['filter' => 'adminauth'], function($routes) {
+        $routes->get('users', 'AdminController::getUsers');           // GET /admin/users
+        $routes->get('users/(:num)', 'AdminController::getUser/$1');  // GET /admin/users/1
+        $routes->put('users/(:num)', 'AdminController::updateUser/$1'); // PUT /admin/users/1
+        $routes->delete('users/(:num)', 'AdminController::deleteUser/$1'); // DELETE /admin/users/1
+        $routes->get('dashboard', 'AdminController::getDashboardStats'); // GET /admin/dashboard
+    });
+
     $routes->get('users/usernames', 'AuthController::getUsernames', ['filter' => 'auth']);
 
     // Future: Category routes can be added here
