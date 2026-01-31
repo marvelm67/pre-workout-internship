@@ -33,6 +33,26 @@ $routes->group('api/v1', ['namespace' => 'App\Controllers'], function($routes) {
         $routes->delete('(:num)', 'ProductController::delete/$1'); // DELETE /api/v1/products/123 (Admin only)
     });
 
+    // Cart routes (authenticated users only)
+    $routes->group('cart', ['filter' => 'auth'], function($routes) {
+        $routes->get('/', 'CartController::index');              // GET /api/v1/cart - Lihat isi keranjang
+        $routes->post('/', 'CartController::create');            // POST /api/v1/cart - Add item to cart
+        $routes->put('(:num)', 'CartController::update/$1');     // PUT /api/v1/cart/1 - Update cart item
+        $routes->delete('(:num)', 'CartController::delete/$1');  // DELETE /api/v1/cart/1 - Remove cart item
+        $routes->delete('clear', 'CartController::clear');       // DELETE /api/v1/cart/clear - Clear cart
+    });
+
+    // Order routes (authenticated users)
+    $routes->group('orders', ['filter' => 'auth'], function($routes) {
+        $routes->get('/', 'OrderController::index');             // GET /api/v1/orders - History transaksi
+        $routes->get('stats', 'OrderController::getStats');      // GET /api/v1/orders/stats (Admin only) - must be before (:alphanum)
+        $routes->get('(:alphanum)', 'OrderController::show/$1');  // GET /api/v1/orders/ABC123DEF456 - Detail order hash
+        $routes->patch('(:alphanum)', 'OrderController::updateStatus/$1'); // PATCH /api/v1/orders/ABC123DEF456 - Update status (Admin)
+    });
+
+    // Checkout route (authenticated users)
+    $routes->post('checkout', 'OrderController::checkout', ['filter' => 'auth']); // POST /api/v1/checkout
+
     // Admin routes (admin only) - dengan AdminFilter
     $routes->group('admin', ['filter' => 'adminauth'], function($routes) {
         $routes->get('users', 'AdminController::getUsers');           // GET /admin/users
