@@ -1,0 +1,33 @@
+{
+  "name": "optic-modern",
+  "version": "1.0.0",
+  "description": "OpticModern - E-Commerce Eyewear Store",
+  "productName": "OpticModern",
+  "author": "OpticModern Team",
+  "private": true,
+  "scripts": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "lint": "eslint --ext .js,.vue ./src"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.16.9",
+    "axios": "^1.6.5",
+    "pinia": "^2.1.7",
+    "quasar": "^2.14.2",
+    "vue": "^3.4.15",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "^1.8.0",
+    "@types/node": "^20.11.5",
+    "eslint": "^8.56.0",
+    "eslint-plugin-vue": "^9.20.1",
+    "vite": "^5.0.12"
+  },
+  "engines": {
+    "node": "^20 || ^18 || ^16",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}

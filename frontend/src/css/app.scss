@@ -1,0 +1,193 @@
+// App Global Styles for OpticModern
+
+// Custom color variables
+$primary: #1a1a2e;
+$secondary: #16213e;
+$accent: #e94560;
+$dark: #0f0f23;
+$positive: #10b981;
+$negative: #ef4444;
+$info: #3b82f6;
+$warning: #f59e0b;
+
+// Override Quasar default colors
+:root {
+  --q-primary: #{$primary};
+  --q-secondary: #{$secondary};
+  --q-accent: #{$accent};
+  --q-dark: #{$dark};
+  --q-positive: #{$positive};
+  --q-negative: #{$negative};
+  --q-info: #{$info};
+  --q-warning: #{$warning};
+}
+
+// Global styles
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8fafc;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+// Utility classes
+.text-gradient {
+  background: linear-gradient(135deg, $primary 0%, $accent 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+// Product card styles
+.product-card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  }
+  
+  .product-image {
+    height: 200px;
+    object-fit: cover;
+    background-color: #f8fafc;
+  }
+}
+
+// Button styles
+.btn-primary {
+  background: $primary !important;
+  color: white !important;
+  
+  &:hover {
+    background: darken($primary, 5%) !important;
+  }
+}
+
+.btn-accent {
+  background: $accent !important;
+  color: white !important;
+  
+  &:hover {
+    background: darken($accent, 5%) !important;
+  }
+}
+
+// Form input styles
+.custom-input {
+  .q-field__control {
+    border-radius: 12px !important;
+  }
+}
+
+// Page transitions
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// Responsive utilities
+@media (max-width: 599px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 600px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+// Category tabs styling
+.category-tabs {
+  .q-tab {
+    border-radius: 25px;
+    margin: 0 4px;
+    
+    &.q-tab--active {
+      background: $primary;
+      color: white;
+    }
+  }
+}
+
+// Cart badge animation
+.cart-badge {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+// Admin dashboard styles
+.stat-card {
+  border-radius: 16px;
+  padding: 24px;
+  
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Price formatting
+.price-tag {
+  font-weight: 700;
+  color: $accent;
+  font-size: 1.25rem;
+}
+
+.price-original {
+  text-decoration: line-through;
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
