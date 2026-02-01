@@ -28,7 +28,87 @@ class AuthController extends ResourceController
         return env('JWT_SECRET') ?: 'fallback-secret-key-change-this';
     }
 
-        public function register()
+    public function login()
+    {
+        try {
+            helper(['form']);
+            
+            $rules = [
+                'email'    => 'required|valid_email',
+                'password' => 'required|min_length[6]'
+            ];
+            
+            if (!$this->validate($rules)) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Validation failed',
+                    'errors' => $this->validator->getErrors()
+                ], 400);
+            }
+            
+            $email = $this->request->getVar('email');
+            $password = $this->request->getVar('password');
+            
+            // Cari user berdasarkan email
+            $user = $this->userModel->where('email', $email)->first();
+            
+            if (!$user) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Email atau password tidak valid'
+                ], 401);
+            }
+            
+            // Verifikasi password
+            if (!Hash::check($password, $user['password'])) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Email atau password tidak valid'
+                ], 401);
+            }
+            
+            // Generate JWT Token
+            $payload = [
+                'user_id' => $user['id'],
+                'email' => $user['email'],
+                'username' => $user['username'],
+                'role' => $user['role'],
+                'iat' => time(),
+                'exp' => time() + (24 * 60 * 60) // Token berlaku 24 jam
+            ];
+            
+            $token = JWT::encode($payload, $this->getJwtSecret(), 'HS256');
+            
+            // Siapkan data user untuk response (tanpa password)
+            $userData = [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'role' => $user['role'],
+                'created_at' => $user['created_at'],
+                'updated_at' => $user['updated_at']
+            ];
+            
+            return $this->respond([
+                'status' => 'success',
+                'message' => 'Login berhasil',
+                'data' => [
+                    'token' => $token,
+                    'user' => $userData,
+                    'role' => $user['role'],
+                    'expires_in' => 24 * 60 * 60 // dalam detik
+                ]
+            ], 200);
+            
+        } catch (\Exception $e) {
+            return $this->fail([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan server: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function register()
     {
         try {
             helper(['form']);
@@ -53,9 +133,9 @@ class AuthController extends ResourceController
             ];
             
             $model = new UserModel();
-            $registered = $model->save($data);
+            $customId = $model->insert($data, true); // Will return custom ID
             
-            if (!$registered) {
+            if (!$customId) {
                 return $this->respond([
                     'status' => 400,
                     'message' => 'Registration failed',
@@ -67,7 +147,7 @@ class AuthController extends ResourceController
                 'status' => 201,
                 'message' => 'User registered successfully',
                 'data' => [
-                    'user_id' => $model->getInsertID(),
+                    'user_id' => $customId,
                     'username' => $data['username'],
                     'email' => $data['email'],
                     'role' => $data['role']
@@ -85,87 +165,62 @@ class AuthController extends ResourceController
         }
     }
 
-    public function login()
+    public function logout()
     {
         try {
-            helper(['form']);
-            
-            $rules = [
-                'email'    => 'required|valid_email',
-                'password' => 'required|min_length[6]'
-            ];
-            
-            if (!$this->validate($rules)) {
-                return $this->fail($this->validator->getErrors(), 400);
-            }
-            
-            $email = $this->request->getVar('email');
-            $password = $this->request->getVar('password');
-
-            // Get user by email
-            $user = $this->userModel->where('email', $email)->first();
-
-            if (!$user) {
-                return $this->respond([
-                    'status' => 401,
-                    'message' => 'Invalid email or password',
-                    'data' => null
-                ], 401);
-            }
-
-            // Verify password using Hash library
-            if (!Hash::check($password, $user['password'])) {
-                return $this->respond([
-                    'status' => 401,
-                    'message' => 'Invalid email or password',
-                    'data' => null
-                ], 401);
-            }
-
-            // Generate JWT token using JWT_SECRET from .env
-            $secret_key = $this->getJwtSecret();
-            $issuedat_claim = time();
-            $expire_claim = $issuedat_claim + (int)(env('JWT_TIME_TO_LIVE') ?: 3600);
-
-            $token_data = [
-                "iss" => base_url(),
-                "aud" => base_url(),
-                "iat" => $issuedat_claim,
-                "exp" => $expire_claim,
-                "data" => [
-                    "id" => $user['id'],
-                    "username" => $user['username'],
-                    "email" => $user['email'],
-                    "role" => $user['role']
-                ]
-            ];
-
-            $token = JWT::encode($token_data, $secret_key, 'HS256');
-
             return $this->respond([
-                'status' => 200,
-                'message' => 'Login successful',
-                'data' => [
-                    'token' => $token,
-                    'user' => [
-                        'id' => $user['id'],
-                        'username' => $user['username'],
-                        'email' => $user['email'],
-                        'role' => $user['role']
-                    ],
-                    'expires_at' => date('Y-m-d H:i:s', $expire_claim),
-                    'expires_in' => $expire_claim - $issuedat_claim
-                ]
+                'status' => 'success',
+                'message' => 'Logout berhasil'
             ], 200);
-
+            
         } catch (\Exception $e) {
-            log_message('error', 'Login error: ' . $e->getMessage());
+            return $this->fail([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan server: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function me()
+    {
+        try {
+            $token = $this->request->getHeaderLine('Authorization');
+            $token = str_replace('Bearer ', '', $token);
+            
+            if (!$token) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Token tidak ditemukan'
+                ], 401);
+            }
+            
+            $key = new \Firebase\JWT\Key($this->getJwtSecret(), 'HS256');
+            $decoded = JWT::decode($token, $key);
+            $userId = $decoded->user_id;
+            
+            $user = $this->userModel->find($userId);
+            
+            if (!$user) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'User tidak ditemukan'
+                ], 404);
+            }
+            
+            // Remove password dari response
+            unset($user['password']);
             
             return $this->respond([
-                'status' => 500,
-                'message' => 'Internal server error',
-                'error' => $e->getMessage()
-            ], 500);
+                'status' => 'success',
+                'message' => 'Data user berhasil diambil',
+                'data' => $user
+            ], 200);
+            
+        } catch (\Exception $e) {
+            return $this->fail([
+                'status' => 'error',
+                'message' => 'Token tidak valid: ' . $e->getMessage()
+            ], 401);
         }
     }
 }

@@ -12,16 +12,28 @@ $routes->get('/', 'Home::index');
  * Direct routes without api/v1 prefix
  */
 
+// OPTIONS routes for CORS preflight
+$routes->options('(:any)', function() {
+    return service('response')
+        ->setHeader('Access-Control-Allow-Origin', 'http://localhost:9000')
+        ->setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH')
+        ->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept, Origin')
+        ->setHeader('Access-Control-Allow-Credentials', 'true')
+        ->setStatusCode(200)
+        ->setBody('');
+});
+
 // Auth routes (no authentication required)
 $routes->post('register', 'AuthController::register');
 $routes->post('login', 'AuthController::login');
+$routes->post('logout', 'AuthController::logout');
 
 // Protected routes (JWT required)
-$routes->get('me', 'Me::index', ['filter' => 'auth']);
+$routes->get('me', 'AuthController::me', ['filter' => 'auth']);
 
 // User routes (admin only)
 $routes->get('users', 'UserController::index', ['filter' => 'auth']);
-$routes->get('users/usernames', 'AuthController::getUsernames', ['filter' => 'auth']);
+$routes->delete('users/(:alphanum)', 'UserController::delete/$1', ['filter' => 'auth']);
 
 // Product routes
 $routes->group('products', function($routes) {

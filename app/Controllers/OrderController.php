@@ -34,12 +34,19 @@ class OrderController extends ResourceController
     public function checkout()
     {
         try {
+            // Debug: log request headers dan user info
+            $request = service('request');
+            log_message('info', 'Checkout request headers: ' . json_encode($request->getHeaders()));
+            log_message('info', 'User from request: ' . json_encode($request->user ?? 'null'));
+            
             $userId = $this->getUserId();
+            
+            log_message('info', 'User ID from getUserId(): ' . ($userId ?? 'null'));
             
             if (!$userId) {
                 return $this->respond([
-                    'status' => 401,
-                    'message' => 'Unauthorized'
+                    'status' => 'error',
+                    'message' => 'Unauthorized - User ID not found'
                 ], 401);
             }
 

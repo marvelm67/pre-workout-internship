@@ -58,4 +58,3 @@ class Auth implements FilterInterface
         // Do nothing
     }
 }
-

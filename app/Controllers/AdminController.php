@@ -21,17 +21,28 @@ class AdminController extends ResourceController
     }
 
     /**
-     * Get all users (Admin only)
+     * Get all users (Admin only) - includes both regular users and admins
      */
     public function getUsers()
     {
         try {
+            // Get all users regardless of role
             $users = $this->userModel->select('id, username, email, role, created_at, updated_at')->findAll();
+            
+            // Count users by role for additional info
+            $totalUsers = count($users);
+            $adminCount = count(array_filter($users, fn($user) => $user['role'] === 'admin'));
+            $regularUserCount = count(array_filter($users, fn($user) => $user['role'] === 'user'));
             
             return $this->respond([
                 'status' => 200,
-                'message' => 'Users retrieved successfully',
-                'data' => $users
+                'message' => 'All users retrieved successfully',
+                'data' => $users,
+                'meta' => [
+                    'total_users' => $totalUsers,
+                    'admin_count' => $adminCount,
+                    'regular_user_count' => $regularUserCount
+                ]
             ], 200);
 
         } catch (\Exception $e) {
@@ -40,7 +51,8 @@ class AdminController extends ResourceController
             return $this->respond([
                 'status' => 500,
                 'message' => 'Internal server error',
-                'data' => null
+                'data' => null,
+                'error' => $e->getMessage()
             ], 500);
         }
     }
