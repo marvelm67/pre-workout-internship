@@ -323,12 +323,20 @@ class ProductController extends BaseController
 
     /**
      * Helper method to check admin authentication
-     * TODO: Implement proper authentication logic
      */
-    // private function isAdmin(): bool
-    // {
-    //     // Implement your authentication logic here
-    //     // This could check JWT token, session, or any other auth method
-    //     return true; // Placeholder
-    // }
+    private function isAdmin(): bool
+    {
+        try {
+            helper('jwt');
+            $payload = validateJWTFromRequest($this->request);
+            
+            if ($payload && isset($payload->data->role)) {
+                return $payload->data->role === 'admin';
+            }
+            
+            return false;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
 }
